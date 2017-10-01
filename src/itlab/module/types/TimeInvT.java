@@ -53,9 +53,6 @@ public class TimeInvT extends Type {
         return result;
     }
 
-    public static boolean supports(String value) {
-        return true;
-    }
 
     @Override
     public void setValue(String s) throws UnsuportetValueException {
@@ -74,9 +71,9 @@ public class TimeInvT extends Type {
 
     @Override
     public String toString() {
-        return "TimeInvT{" +
+        return "TimeInvT{" +"value={"+
                 "begin=" + begin +
                 ", end=" + end +
-                '}';
+                "}}";
     }
 }

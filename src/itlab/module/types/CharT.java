@@ -8,7 +8,7 @@ import itlab.module.exceptions.UnsuportetValueException;
 public class CharT extends Type {
 
 
-    Character character;
+    Character value;
 
     CharT(String s) throws UnsuportetValueException {
         super(s);
@@ -22,25 +22,24 @@ public class CharT extends Type {
 
         CharT aChar = (CharT) o;
 
-        return character != null ? character.equals(aChar.character) : aChar.character == null;
+        return value != null ? value.equals(aChar.value) : aChar.value == null;
     }
 
     @Override
     public int hashCode() {
-        return character != null ? character.hashCode() : 0;
+        return value != null ? value.hashCode() : 0;
     }
 
-    public static boolean supports(String value){ return true; }
 
     @Override
     public void setValue(String s) {
-    character=s.charAt(0);
+    value =s.charAt(0);
     }
 
     @Override
     public String toString() {
         return "CharT{" +
-                "character=" + character +
+                "value=" + value +
                 '}';
     }
 }

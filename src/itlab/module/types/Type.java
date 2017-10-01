@@ -11,7 +11,6 @@ import java.util.HashMap;
 public abstract class Type implements Serializable {
     Type(String s) throws UnsuportetValueException { setValue(s);}
     public abstract void setValue(String s) throws UnsuportetValueException;
-
     @Override
     public String toString() {
         return "Type{}";

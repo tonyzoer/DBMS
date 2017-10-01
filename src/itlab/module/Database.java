@@ -1,5 +1,7 @@
 package itlab.module;
 
+import itlab.module.exceptions.TableAlreadyExsists;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,14 +33,17 @@ public class Database implements Serializable {
 
 
 
-    public String createTable(String name,Scheme scheme){
+    public String createTable(String name,Scheme scheme) throws TableAlreadyExsists {
+        if (!tables.containsKey(name)){
         Table t=new Table(name,scheme);
-        String uuid=UUID.randomUUID().toString();
-        tables.put(uuid,t);
-        return uuid;
+        tables.put(name,t);
+        return name;}
+        else {
+            throw new TableAlreadyExsists(name+ " table already exsists");
+        }
     }
-    public void deleteTable(String uuid){}
-    public Table getTable(String uuid){ return tables.get(uuid);}
+    public void deleteTable(String name){}
+    public Table getTable(String name){ return tables.get(name);}
     public void save(){}
     public void load(){}
 

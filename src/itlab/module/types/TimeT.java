@@ -35,9 +35,6 @@ public class TimeT extends Type {
         return getValue() != null ? getValue().hashCode() : 0;
     }
 
-    public static boolean supports(String value) {
-        return true;
-    }
 
     @Override
     public void setValue(String s) throws UnsuportetValueException {

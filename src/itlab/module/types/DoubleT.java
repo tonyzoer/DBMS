@@ -2,6 +2,8 @@ package itlab.module.types;
 
 import itlab.module.exceptions.UnsuportetValueException;
 
+import java.util.regex.Pattern;
+
 /**
  * Created by mafio on 30.09.2017.
  */
@@ -46,9 +48,6 @@ public class DoubleT extends Type {
         return getValue() != null ? getValue().hashCode() : 0;
     }
 
-    public static boolean supports(String value) {
-        return true;
-    }
 
     @Override
     public String toString() {

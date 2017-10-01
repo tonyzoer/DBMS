@@ -22,37 +22,37 @@ public class ValueTypeFabric {
     public Type createCorrectType(Types t, String val) throws UnsuportetValueException {
         switch (t) {
             case CHAR:
-                if (CharT.supports(val)) {
-                    return new CharT(val);
-                }
-                break;
+//                if (CharT.supports(val)) {
+                return new CharT(val);
+//                }
+//                break;
             case CHARINTERVAL:
-                if (CharInvT.supports(val)) {
-                    return new CharInvT(val);
-                }
-                break;
+//                if (CharInvT.supports(val)) {
+                return new CharInvT(val);
+//                }
+//                break;
             case DOUBLE:
-                if (DoubleT.supports(val)) {
-                    return new DoubleT(val);
-                }
-                break;
+//                if (DoubleT.supports(val)) {
+                return new DoubleT(val);
+//                }
+//                break;
             case INTEGER:
-                if (IntegerT.supports(val)) {
-                    return new IntegerT(val);
-                }
-                break;
+//                if (IntegerT.supports(val)) {
+                return new IntegerT(val);
+//                }
+//                break;
             case STRING:
                 return new StringT(val);
             case TIMEINTERVAL:
-                if (TimeInvT.supports(val))
-                    return new TimeInvT(val);
-                break;
+//                if (TimeInvT.supports(val))
+                return new TimeInvT(val);
+//                break;
             case TIME:
-                if (TimeT.supports(val)) {
-                    return new TimeT(val);
-                }
-                break;
+//                if (TimeT.supports(val)) {
+                return new TimeT(val);
         }
+//                break;
+//        }
         return null;
     }
 

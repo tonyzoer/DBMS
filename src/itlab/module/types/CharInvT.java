@@ -16,8 +16,6 @@ public class CharInvT extends Type {
         super(s);
     }
 
-    public static boolean supports(String value){ return true; }
-
 
 
     public void setValue(String value) {
