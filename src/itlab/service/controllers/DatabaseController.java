@@ -5,6 +5,7 @@ import itlab.module.Row;
 import itlab.module.Scheme;
 
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -26,4 +27,5 @@ public interface DatabaseController {
   public abstract void updateRowInTable(String databaseName, String tableName,String rowUUID,Map<String,String> collumnValues);
   public abstract void tableTntersection(String table1,String table2, String newTableName);
   public abstract void tableDifference(String table1,String table2, String newTableName);
+  public List<String> getAllDatabases();
 }

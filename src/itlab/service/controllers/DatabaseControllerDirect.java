@@ -1,7 +1,11 @@
 package itlab.service.controllers;
 
 import itlab.module.Database;
+import itlab.module.Scheme;
+import itlab.module.types.Types;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -9,7 +13,7 @@ import java.util.Map;
  */
 public class DatabaseControllerDirect  implements DatabaseController{
     private static DatabaseControllerDirect ourInstance = new DatabaseControllerDirect();
-
+    private Map<String,Database> dbInMemmory=new HashMap<>();
     public static DatabaseControllerDirect getInstance() {
         return ourInstance;
     }
@@ -19,32 +23,42 @@ public class DatabaseControllerDirect  implements DatabaseController{
 
     @Override
     public void createDatabase(String name) {
-
+    dbInMemmory.put(name,new Database(name));
     }
 
     @Override
     public void deleteDatabase(String name) {
-
+    dbInMemmory.get(name).delete();
     }
 
     @Override
     public Database getDatabase(String name) {
-        return null;
+        return dbInMemmory.get(name);
     }
 
     @Override
     public void saveDatabase(String name) {
-
+    dbInMemmory.get(name).save();
     }
 
     @Override
     public void loadDatabase(String name) {
-
+    dbInMemmory.put(name, new Database(name));
+    dbInMemmory.get(name).load();
     }
 
     @Override
     public void addTable(String databaseName, String tableName, Map<String, String> collumns) {
-
+    Database db= dbInMemmory.get(databaseName);
+    if (db!=null){
+        Map<String,Types> collumnsTypes=new HashMap<>();
+        for ( Map.Entry<String,String> col:collumns.entrySet()
+             ) {
+//            collumnsTypes.put(col.getKey(),Types.valueOf(col.getValue()))
+        }
+//        Scheme scheme=new Scheme()
+//        db.createTable(tableName,new)
+    }
     }
 
     @Override
@@ -90,5 +104,10 @@ public class DatabaseControllerDirect  implements DatabaseController{
     @Override
     public void tableDifference(String table1, String table2, String newTableName) {
 
+    }
+
+    @Override
+    public List<String> getAllDatabases() {
+        return null;
     }
 }
