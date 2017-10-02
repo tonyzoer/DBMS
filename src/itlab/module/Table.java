@@ -15,14 +15,27 @@ import java.util.UUID;
  */
 public class Table implements Serializable {
     public String name;
+
     private Scheme scheme;
 
     private Map<String, Row> rows;
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public Table(String name, Scheme scheme) {
-        this.rows=new HashMap<>();
+        this.rows = new HashMap<>();
         this.scheme = scheme;
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Scheme getScheme() {
+        return scheme;
     }
 
     public Map<String, Row> getRows() {

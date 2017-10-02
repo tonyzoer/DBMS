@@ -1,7 +1,10 @@
 package itlab.service.controllers;
 
 import itlab.module.Database;
+import itlab.module.Row;
 import itlab.module.Scheme;
+import itlab.module.exceptions.TableAlreadyExsists;
+import itlab.module.exceptions.UnsuportetValueException;
 import itlab.module.types.Types;
 
 import java.util.HashMap;
@@ -54,36 +57,52 @@ public class DatabaseControllerDirect  implements DatabaseController{
         Map<String,Types> collumnsTypes=new HashMap<>();
         for ( Map.Entry<String,String> col:collumns.entrySet()
              ) {
-//            collumnsTypes.put(col.getKey(),Types.valueOf(col.getValue()))
+            collumnsTypes.put(col.getKey(),Types.valueOf(col.getValue()));
         }
-//        Scheme scheme=new Scheme()
-//        db.createTable(tableName,new)
+       Scheme scheme=new Scheme(collumnsTypes);
+        try {
+            db.createTable(tableName,scheme);
+        } catch (TableAlreadyExsists tableAlreadyExsists) {
+            //TODO Send another exception;
+            tableAlreadyExsists.printStackTrace();
+        }
     }
     }
 
     @Override
-    public Map<String, Map<String, String>> getTableRows(String databaseName, String tableName) {
-        return null;
+    public Map<String, String> getTableRows(String databaseName, String tableName) {
+        Map<String,Row> rows=dbInMemmory.get(databaseName).getTable(tableName).getRows();
+        Map<String,String> rowsMap=new HashMap<>();
+        for (Map.Entry<String,Row> row:rows.entrySet()
+             ) {
+            rowsMap.put(row.getKey(),row.getValue().toString());
+        }
+        return rowsMap;
     }
 
     @Override
     public Map<String, String> getTableScheme(String databaseName, String tableName) {
-        return null;
+        Map<String,String> collums=new HashMap<>();
+        for (Map.Entry<String,Types> col:dbInMemmory.get(databaseName).getTable(tableName).getScheme().getColumns().entrySet()
+             ) {
+            collums.put(col.getKey(),col.getValue().toString());
+        }
+        return collums;
     }
 
     @Override
     public void removeTable(String databaseName, String tableName) {
-
+    dbInMemmory.get(databaseName).deleteTable(tableName);
     }
 
     @Override
     public void renameTable(String databaseName, String tableNameCurrent, String tableNameNew) {
-
+    dbInMemmory.get(databaseName).getTable(tableNameCurrent).setName(tableNameNew);
     }
 
     @Override
-    public void addRowToTable(String databaseName, String tableName, Map<String, String> collumnValues) {
-
+    public void addRowToTable(String databaseName, String tableName, Map<String, String> collumnValues) throws UnsuportetValueException {
+    dbInMemmory.get(databaseName).getTable(tableName).addRow(collumnValues);
     }
 
     @Override
