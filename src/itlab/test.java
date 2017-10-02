@@ -4,6 +4,7 @@ import itlab.module.Database;
 import itlab.module.Scheme;
 import itlab.module.Table;
 import itlab.module.exceptions.TableAlreadyExsists;
+import itlab.module.exceptions.TableNotExsisits;
 import itlab.module.exceptions.UnsuportetValueException;
 import itlab.module.types.Types;
 
@@ -14,8 +15,8 @@ import java.util.Map;
  * Created by mafio on 01.10.2017.
  */
 public class test {
-    public static void main(String[] args) throws UnsuportetValueException, TableAlreadyExsists {
-    delete();
+    public static void main(String[] args) throws UnsuportetValueException, TableAlreadyExsists, TableNotExsisits {
+    save();
     }
     private static void load(){
         Database database=new Database("shit");
@@ -24,7 +25,7 @@ public class test {
         Table tb=tables.get("first table");
         System.out.println(tb.getRows());
     }
-    private static void save() throws TableAlreadyExsists, UnsuportetValueException {
+    private static void save() throws TableAlreadyExsists, UnsuportetValueException, TableNotExsisits {
         Database database=new Database("shit");
         HashMap<String,Types> schemeMap=new HashMap<>();
         schemeMap.put("id",Types.INTEGER);

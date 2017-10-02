@@ -18,14 +18,27 @@ public class Row  implements Serializable {
     Map<String,Type> values;
     public Row(Scheme sc, Map<String,String> columnValue) throws UnsuportetValueException {
         values=new HashMap<>();
+        Integer exceptionCounter=0;
+        Map<String,String> notPassedValues=new HashMap<>();
         for (Map.Entry<String,Types> col :sc.getColumns().entrySet()
              ) {
-            String value=columnValue.get(col.getKey());
-            if (value!=null){
-            values.put(col.getKey(), ValueTypeFabric.getInstance().createCorrectType(col.getValue(),value));
-            }else{
-                values.put(col.getKey(), ValueTypeFabric.getInstance().createCorrectType(col.getValue()));
+
+            try {
+
+
+                String value = columnValue.get(col.getKey());
+                if (value != null) {
+                    values.put(col.getKey(), ValueTypeFabric.getInstance().createCorrectType(col.getValue(), value));
+                } else {
+                    values.put(col.getKey(), ValueTypeFabric.getInstance().createCorrectType(col.getValue()));
+                }
+            }catch (UnsuportetValueException ex){
+                exceptionCounter++;
+                notPassedValues.put(col.getKey(),columnValue.get(col.getKey()));
             }
+        }
+        if (exceptionCounter>0){
+            throw new UnsuportetValueException("Collumns"+notPassedValues+" didnt passed");
         }
     }
     public void setValue(String column,String value,Types type) throws NonExsistingColumnInRow, UnsuportetValueException {
@@ -40,6 +53,7 @@ public class Row  implements Serializable {
             throw new NonExsistingColumnInRow("Collumn :"+column+"not exsists in row");
             }
         }
+
     }
 
 

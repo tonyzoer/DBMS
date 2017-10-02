@@ -1,6 +1,7 @@
 package itlab.module;
 
 import itlab.module.exceptions.TableAlreadyExsists;
+import itlab.module.exceptions.TableNotExsisits;
 
 import java.io.*;
 import java.util.HashMap;
@@ -28,11 +29,6 @@ public class Database implements Serializable {
         return tables;
     }
 
-//    public void setTables(Map<String, Table> tables) {
-//        this.tables = tables;
-//    }
-
-
     public String createTable(String name, Scheme scheme) throws TableAlreadyExsists {
         if (!tables.containsKey(name)) {
             Table t = new Table(name, scheme);
@@ -47,8 +43,11 @@ public class Database implements Serializable {
         tables.remove(name);
     }
 
-    public Table getTable(String name) {
-        return tables.get(name);
+    public Table getTable(String name) throws TableNotExsisits {
+
+        if (tables.containsKey(name))
+            return tables.get(name);
+        else throw new TableNotExsisits("Table " + name+" in database " + this.name + " not exsists");
     }
 
     public void save() {
