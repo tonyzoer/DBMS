@@ -1,22 +1,18 @@
 package itlab.module;
 
-import itlab.module.exceptions.NonExsistingColumnInRow;
-import itlab.module.exceptions.UnsuportetValueException;
+import itlab.module.exceptions.NonExistingColumn;
+import itlab.module.exceptions.UnsupportedValueException;
 import itlab.module.types.Type;
 import itlab.module.types.Types;
 import itlab.module.types.ValueTypeFabric;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-/**
- * Created by mafio on 25.09.2017.
- */
 public class Row  implements Serializable {
     Map<String,Type> values;
-    public Row(Scheme sc, Map<String,String> columnValue) throws UnsuportetValueException {
+    public Row(Scheme sc, Map<String,String> columnValue) throws UnsupportedValueException {
         values=new HashMap<>();
         Integer exceptionCounter=0;
         Map<String,String> notPassedValues=new HashMap<>();
@@ -32,16 +28,16 @@ public class Row  implements Serializable {
                 } else {
                     values.put(col.getKey(), ValueTypeFabric.getInstance().createCorrectType(col.getValue()));
                 }
-            }catch (UnsuportetValueException ex){
+            }catch (UnsupportedValueException ex){
                 exceptionCounter++;
                 notPassedValues.put(col.getKey(),columnValue.get(col.getKey()));
             }
         }
         if (exceptionCounter>0){
-            throw new UnsuportetValueException("Collumns"+notPassedValues+" didnt passed");
+            throw new UnsupportedValueException("Collumns"+notPassedValues+" didnt passed");
         }
     }
-    public void setValue(String column,String value,Types type) throws NonExsistingColumnInRow, UnsuportetValueException {
+    public void setValue(String column,String value,Types type) throws NonExistingColumn, UnsupportedValueException {
         Type t= values.get(column);
         if (t!=null){
         t.setValue(value);
@@ -50,7 +46,7 @@ public class Row  implements Serializable {
             if (values.containsKey(column)){
             values.replace(column,ValueTypeFabric.getInstance().createCorrectType(type,value));
             }else{
-            throw new NonExsistingColumnInRow("Collumn :"+column+"not exsists in row");
+            throw new NonExistingColumn("Collumn :"+column+"not exsists in row");
             }
         }
 

@@ -4,9 +4,6 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Created by mafio on 02.10.2017.
- */
 public class DatabaseHelper {
     public static List<String> getAllSavedDatabases(){
         List<String> dbs=new LinkedList<>();

@@ -1,18 +1,14 @@
 package itlab.module.types;
 
-import itlab.module.exceptions.UnavailableCharacterInValue;
-import itlab.module.exceptions.UnsuportetValueException;
+import itlab.module.exceptions.UnsupportedValueException;
 
 import java.util.Set;
 
-/**
- * Created by mafio on 30.09.2017.
- */
 public class CharInvT extends Type {
     Set<Character> alphabet;
     String value;
 
-    CharInvT(String s) throws UnsuportetValueException {
+    CharInvT(String s) throws UnsupportedValueException {
         super(s);
     }
 

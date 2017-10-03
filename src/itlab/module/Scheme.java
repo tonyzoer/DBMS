@@ -6,9 +6,6 @@ import itlab.module.types.Types;
 import java.io.Serializable;
 import java.util.Map;
 
-/**
- * Created by mafio on 30.09.2017.
- */
 public class Scheme implements Serializable {
     Map<String, Types> columns;
 

@@ -1,8 +1,5 @@
 package itlab.module.exceptions;
 
-/**
- * Created by mafio on 30.09.2017.
- */
 public class UnavailableCharacterInValue extends Exception {
     public UnavailableCharacterInValue() {
     }

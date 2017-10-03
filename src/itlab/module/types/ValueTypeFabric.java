@@ -1,10 +1,7 @@
 package itlab.module.types;
 
-import itlab.module.exceptions.UnsuportetValueException;
+import itlab.module.exceptions.UnsupportedValueException;
 
-/**
- * Created by mafio on 01.10.2017.
- */
 public class ValueTypeFabric {
 
     private static ValueTypeFabric instance;
@@ -19,7 +16,7 @@ public class ValueTypeFabric {
         return instance;
     }
 
-    public Type createCorrectType(Types t, String val) throws UnsuportetValueException {
+    public Type createCorrectType(Types t, String val) throws UnsupportedValueException {
         switch (t) {
             case CHAR:
 //                if (CharT.supports(val)) {
@@ -56,7 +53,7 @@ public class ValueTypeFabric {
         return null;
     }
 
-    public Type createCorrectType(Types t) throws UnsuportetValueException {
+    public Type createCorrectType(Types t) throws UnsupportedValueException {
         switch (t) {
             case CHAR:
                 return new CharT("");

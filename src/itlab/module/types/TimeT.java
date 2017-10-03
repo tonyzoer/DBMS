@@ -1,18 +1,15 @@
 package itlab.module.types;
 
-import itlab.module.exceptions.UnsuportetValueException;
+import itlab.module.exceptions.UnsupportedValueException;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Created by mafio on 30.09.2017.
- */
 public class TimeT extends Type {
     LocalTime value;
 
 
-    public TimeT(String value) throws UnsuportetValueException {
+    public TimeT(String value) throws UnsupportedValueException {
         super(value);
     }
 
@@ -37,11 +34,11 @@ public class TimeT extends Type {
 
 
     @Override
-    public void setValue(String s) throws UnsuportetValueException {
+    public void setValue(String s) throws UnsupportedValueException {
         try {
             value = LocalTime.parse(s, DateTimeFormatter.ofPattern("HH:mm:ss[.ssssss]"));
         }catch (DateTimeException ex){
-            throw new UnsuportetValueException(s+" not suportet value for Time Type",ex);
+            throw new UnsupportedValueException(s+" not suportet value for Time Type",ex);
         }
     }
 

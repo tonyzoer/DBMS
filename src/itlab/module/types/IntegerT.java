@@ -1,25 +1,20 @@
 package itlab.module.types;
 
-import itlab.module.exceptions.UnsuportetValueException;
+import itlab.module.exceptions.UnsupportedValueException;
 
-import java.util.regex.Pattern;
-
-/**
- * Created by mafio on 30.09.2017.
- */
 public class IntegerT extends Type {
     Integer value;
 
-    IntegerT(String s) throws UnsuportetValueException {
+    IntegerT(String s) throws UnsupportedValueException {
         super(s);
     }
 
     @Override
-    public void setValue(String s) throws UnsuportetValueException {
+    public void setValue(String s) throws UnsupportedValueException {
         try {
             value = Integer.parseInt(s);
         } catch (NumberFormatException e) {
-            throw new UnsuportetValueException(value + "not suported for class Integer", e);
+            throw new UnsupportedValueException(value + "not suported for class Integer", e);
         }
     }
 

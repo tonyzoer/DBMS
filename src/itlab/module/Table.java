@@ -1,18 +1,14 @@
 package itlab.module;
 
-import itlab.module.exceptions.NonExsistingColumnInRow;
-import itlab.module.exceptions.UnsuportetValueException;
+import itlab.module.exceptions.NonExistingColumn;
+import itlab.module.exceptions.UnsupportedValueException;
 import itlab.module.types.Types;
 
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-/**
- * Created by mafio on 25.09.2017.
- */
 public class Table implements Serializable {
     public String name;
 
@@ -42,7 +38,7 @@ public class Table implements Serializable {
         return rows;
     }
 
-    public String addRow(Map<String, String> values) throws UnsuportetValueException {
+    public String addRow(Map<String, String> values) throws UnsupportedValueException {
         String uuid = UUID.randomUUID().toString();
         rows.put(uuid, new Row(scheme, values));
         return uuid;
@@ -56,11 +52,11 @@ public class Table implements Serializable {
         rows.remove(uuid);
     }
 
-    public void updateRow(String uuid, Map<String, String> values) throws UnsuportetValueException {
+    public void updateRow(String uuid, Map<String, String> values) throws UnsupportedValueException {
         rows.replace(uuid, new Row(scheme, values));
     }
 
-    public void updateRow(String uuid, String collumnName, String value) throws NonExsistingColumnInRow, UnsuportetValueException {
+    public void updateRow(String uuid, String collumnName, String value) throws NonExistingColumn, UnsupportedValueException {
         Row cur = rows.get(uuid);
         Types t = scheme.getColumns().get(collumnName);
         if (t != null)

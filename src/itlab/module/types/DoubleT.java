@@ -1,26 +1,21 @@
 package itlab.module.types;
 
-import itlab.module.exceptions.UnsuportetValueException;
+import itlab.module.exceptions.UnsupportedValueException;
 
-import java.util.regex.Pattern;
-
-/**
- * Created by mafio on 30.09.2017.
- */
 public class DoubleT extends Type {
     Double value;
 
-    DoubleT(String s) throws UnsuportetValueException {
+    DoubleT(String s) throws UnsupportedValueException {
         super(s);
     }
 
 
     @Override
-    public void setValue(String s) throws UnsuportetValueException {
+    public void setValue(String s) throws UnsupportedValueException {
         try {
             value = Double.parseDouble(s);
         } catch (NumberFormatException e) {
-            throw new UnsuportetValueException(value + "not suported for class Double", e);
+            throw new UnsupportedValueException(value + "not suported for class Double", e);
         }
     }
 

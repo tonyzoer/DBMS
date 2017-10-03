@@ -1,16 +1,13 @@
 package itlab.module.types;
 
-import itlab.module.exceptions.UnsuportetValueException;
+import itlab.module.exceptions.UnsupportedValueException;
 
-/**
- * Created by mafio on 30.09.2017.
- */
 public class CharT extends Type {
 
 
     Character value;
 
-    CharT(String s) throws UnsuportetValueException {
+    CharT(String s) throws UnsupportedValueException {
         super(s);
     }
 

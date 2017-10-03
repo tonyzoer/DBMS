@@ -1,8 +1,5 @@
 package itlab.module.exceptions;
 
-/**
- * Created by mafio on 01.10.2017.
- */
 public class TableAlreadyExsists extends Exception {
     public TableAlreadyExsists() {
         super();

@@ -1,16 +1,12 @@
 package itlab.module;
 
 import itlab.module.exceptions.TableAlreadyExsists;
-import itlab.module.exceptions.TableNotExsisits;
+import itlab.module.exceptions.NonExistingTable;
 
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
-/**
- * Created by mafio on 25.09.2017.
- */
 public class Database implements Serializable {
     Map<String, Table> tables;
     String name;
@@ -43,16 +39,16 @@ public class Database implements Serializable {
         tables.remove(name);
     }
 
-    public Table getTable(String name) throws TableNotExsisits {
+    public Table getTable(String name) throws NonExistingTable {
 
         if (tables.containsKey(name))
             return tables.get(name);
-        else throw new TableNotExsisits("Table " + name+" in database " + this.name + " not exsists");
+        else throw new NonExistingTable("Table " + name+" in database " + this.name + " not exsists");
     }
 
     public void save() {
         try {
-            File f = new File("database/" + name + ".db");
+            File f = new File(name + ".db");
             FileOutputStream fos = new FileOutputStream(f);
             ObjectOutputStream out = new ObjectOutputStream(fos);
             out.writeObject(this);
@@ -65,7 +61,7 @@ public class Database implements Serializable {
 
     public void load() {
         try {
-            Object db = new ObjectInputStream(new FileInputStream("database/" + name + ".db")).readObject();
+            Object db = new ObjectInputStream(new FileInputStream(name + ".db")).readObject();
             if (db instanceof Database) {
                 Database lDatabase = (Database) db;
                 this.tables = lDatabase.tables;
@@ -78,7 +74,13 @@ public class Database implements Serializable {
     public void delete() {
         File f = new File("database/" + name + ".db");
         f.delete();
-
     }
 
+    @Override
+    public String toString() {
+        return "Database{" +
+                "tables=" + tables +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

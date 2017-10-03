@@ -7,9 +7,6 @@ import itlab.service.controllers.DatabaseController;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by mafio on 02.10.2017.
- */
 public interface IView {
     public abstract void createDatabase(String name);
     public abstract void deleteDatabase(String name);

@@ -4,8 +4,8 @@ import itlab.module.Database;
 import itlab.module.Row;
 import itlab.module.Scheme;
 import itlab.module.exceptions.TableAlreadyExsists;
-import itlab.module.exceptions.TableNotExsisits;
-import itlab.module.exceptions.UnsuportetValueException;
+import itlab.module.exceptions.NonExistingTable;
+import itlab.module.exceptions.UnsupportedValueException;
 import itlab.module.types.Types;
 import itlab.service.helpers.DatabaseHelper;
 
@@ -13,9 +13,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by mafio on 01.10.2017.
- */
 public class DatabaseControllerDirect  implements DatabaseController{
     private static DatabaseControllerDirect ourInstance = new DatabaseControllerDirect();
     private Map<String,Database> dbInMemmory=new HashMap<>();
@@ -72,7 +69,7 @@ public class DatabaseControllerDirect  implements DatabaseController{
     }
 
     @Override
-    public Map<String, String> getTableRows(String databaseName, String tableName) throws TableNotExsisits {
+    public Map<String, String> getTableRows(String databaseName, String tableName) throws NonExistingTable {
         Map<String,Row> rows=dbInMemmory.get(databaseName).getTable(tableName).getRows();
         Map<String,String> rowsMap=new HashMap<>();
         for (Map.Entry<String,Row> row:rows.entrySet()
@@ -83,7 +80,7 @@ public class DatabaseControllerDirect  implements DatabaseController{
     }
 
     @Override
-    public Map<String, String> getTableScheme(String databaseName, String tableName) throws TableNotExsisits {
+    public Map<String, String> getTableScheme(String databaseName, String tableName) throws NonExistingTable {
         Map<String,String> collums=new HashMap<>();
         for (Map.Entry<String,Types> col:dbInMemmory.get(databaseName).getTable(tableName).getScheme().getColumns().entrySet()
              ) {
@@ -98,22 +95,22 @@ public class DatabaseControllerDirect  implements DatabaseController{
     }
 
     @Override
-    public void renameTable(String databaseName, String tableNameCurrent, String tableNameNew) throws TableNotExsisits {
+    public void renameTable(String databaseName, String tableNameCurrent, String tableNameNew) throws NonExistingTable {
     dbInMemmory.get(databaseName).getTable(tableNameCurrent).setName(tableNameNew);
     }
 
     @Override
-    public void addRowToTable(String databaseName, String tableName, Map<String, String> collumnValues) throws UnsuportetValueException, TableNotExsisits {
+    public void addRowToTable(String databaseName, String tableName, Map<String, String> collumnValues) throws UnsupportedValueException, NonExistingTable {
     dbInMemmory.get(databaseName).getTable(tableName).addRow(collumnValues);
     }
 
     @Override
-    public void removeRowFromTable(String databaseName, String tableName, String rowUUID) throws TableNotExsisits {
+    public void removeRowFromTable(String databaseName, String tableName, String rowUUID) throws NonExistingTable {
     dbInMemmory.get(databaseName).getTable(tableName).deleteRow(rowUUID);
     }
 
     @Override
-    public void updateRowInTable(String databaseName, String tableName, String rowUUID, Map<String, String> collumnValues) throws UnsuportetValueException, TableNotExsisits {
+    public void updateRowInTable(String databaseName, String tableName, String rowUUID, Map<String, String> collumnValues) throws UnsupportedValueException, NonExistingTable {
     dbInMemmory.get(databaseName).getTable(tableName).updateRow(rowUUID,collumnValues);
     }
 
