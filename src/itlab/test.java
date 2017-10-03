@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public class test {
     public static void main(String[] args) throws UnsuportetValueException, TableAlreadyExsists, TableNotExsisits {
-    save();
+    load();
     }
     private static void load(){
         Database database=new Database("shit");
