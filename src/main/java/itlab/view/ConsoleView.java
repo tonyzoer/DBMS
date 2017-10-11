@@ -1,5 +1,4 @@
 package itlab.view;
-
 import itlab.module.exceptions.NonExistingTable;
 import itlab.module.exceptions.UnsupportedValueException;
 import itlab.service.controllers.DatabaseControllerDirect;

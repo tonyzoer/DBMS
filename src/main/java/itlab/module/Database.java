@@ -115,15 +115,27 @@ public class Database implements Serializable {
         Table second = tables.get(table2);
         if(!first.getScheme().equals(second.getScheme())) return null;
 
-        ArrayList<Row> result = new ArrayList<>();
-        for(Map.Entry<String, Row> item : first.getRows().entrySet()){
-            if(!item.getValue().equals(second.getRow(item.getKey()))) result.add(item.getValue());
-        }
-        for(Map.Entry<String, Row> item : second.getRows().entrySet()){
-            if(!item.getValue().equals(first.getRow(item.getKey()))) result.add(item.getValue());
-        }
+        List<Row> firstList=new ArrayList(first.getRows().values());
+        List<Row> firstListTemp=new ArrayList(first.getRows().values());
+        List<Row> secondList=new ArrayList(second.getRows().values());
+        firstList.removeAll(secondList);
+        secondList.removeAll(firstListTemp);
+        firstList.addAll(secondList);
 
-        return result;
+        return firstList;
+    }
+    public List<Row> intersectionTable(String table1, String table2) throws NonExistingTable{
+        if(tables.get(table1) == null || tables.get(table2) == null) throw new NonExistingTable();
+        Table first = tables.get(table1);
+        Table second = tables.get(table2);
+        if(!first.getScheme().equals(second.getScheme())) return null;
+
+        List<Row> firstList=new ArrayList(first.getRows().values());
+        List<Row> firstListTemp=new ArrayList(first.getRows().values());
+        List<Row> secondList=new ArrayList(second.getRows().values());
+        firstList.removeAll(secondList);
+        firstListTemp.removeAll(firstList);
+        return firstListTemp;
     }
 
     @Override

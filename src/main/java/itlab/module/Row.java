@@ -68,7 +68,7 @@ public class Row implements Serializable {
         Row row = (Row) o;
 
         for(Map.Entry<String, Type> item : values.entrySet()){
-            if(item.getValue() != row.values.get(item.getKey())) return false;
+            if(!item.getValue().equals(row.values.get(item.getKey()))) return false;
         }
 
         return true;
